@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from app.detector import detect_anomaly
 from app.models import add_transaction, get_history
 
@@ -7,6 +7,9 @@ main = Blueprint('main', __name__)
 @main.route('/health', methods=['GET'])
 def health():
     return jsonify({"status": "FraudShield is running 🛡️"}), 200
+@main.route('/', methods=['GET'])
+def dashboard():
+    return render_template('index.html')
 
 @main.route('/analyze', methods=['POST'])
 def analyze():
